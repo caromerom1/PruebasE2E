@@ -1,3 +1,5 @@
+import GENERAL_CONSTANTS from "../constants";
+
 const ghostUrl = Cypress.env("ghostUrl");
 
 const CONSTANTS = {
@@ -9,12 +11,6 @@ const CONSTANTS = {
   ],
   MAIN_ERROR_LABEL: "Please fill out the form to setup your blog.",
   INVALID_EMAIL_ERROR: "Invalid Email.",
-  SITE_TITLE: "Ghost",
-  VALID_NAME: "John Doe",
-  VALID_EMAIL: "test@test.com",
-  VALID_PASSWORD: "Sec.ure@Pas.sw0rd*158",
-  INVALID_EMAIL: "email_invalid.com",
-  INVALID_PASSWORD: "123456789",
 };
 
 beforeEach(() => {
@@ -43,10 +39,10 @@ describe("Create ghost account", () => {
   });
 
   it("should not create a new ghost account when email is invalid", () => {
-    cy.get("input[name='blog-title']").type(CONSTANTS.SITE_TITLE);
-    cy.get("input[name='name']").type(CONSTANTS.VALID_NAME);
-    cy.get("input[name='email']").type(CONSTANTS.INVALID_EMAIL);
-    cy.get("input[name='password']").type(CONSTANTS.VALID_PASSWORD);
+    cy.get("input[name='blog-title']").type(GENERAL_CONSTANTS.SITE_TITLE);
+    cy.get("input[name='name']").type(GENERAL_CONSTANTS.VALID_NAME);
+    cy.get("input[name='email']").type(GENERAL_CONSTANTS.INVALID_EMAIL);
+    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
 
     cy.get(
       "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
@@ -58,10 +54,10 @@ describe("Create ghost account", () => {
   });
 
   it("should not create a new ghost account when password has less than 10 characters", () => {
-    cy.get("input[name='blog-title']").type(CONSTANTS.SITE_TITLE);
-    cy.get("input[name='name']").type(CONSTANTS.VALID_NAME);
-    cy.get("input[name='email']").type(CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(CONSTANTS.INVALID_PASSWORD);
+    cy.get("input[name='blog-title']").type(GENERAL_CONSTANTS.SITE_TITLE);
+    cy.get("input[name='name']").type(GENERAL_CONSTANTS.VALID_NAME);
+    cy.get("input[name='email']").type(GENERAL_CONSTANTS.VALID_EMAIL);
+    cy.get("input[name='password']").type(GENERAL_CONSTANTS.INVALID_PASSWORD);
 
     cy.get(
       "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
@@ -73,18 +69,19 @@ describe("Create ghost account", () => {
   });
 
   it("should create a new ghost account when all inputs are valid", () => {
-    cy.get("input[name='blog-title']").type(CONSTANTS.SITE_TITLE);
-    cy.get("input[name='name']").type(CONSTANTS.VALID_NAME);
-    cy.get("input[name='email']").type(CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(CONSTANTS.VALID_PASSWORD);
+    cy.get("input[name='blog-title']").type(GENERAL_CONSTANTS.SITE_TITLE);
+    cy.get("input[name='name']").type(GENERAL_CONSTANTS.VALID_NAME);
+    cy.get("input[name='email']").type(GENERAL_CONSTANTS.VALID_EMAIL);
+    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
 
-    cy.get("button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view").click();
+    cy.get(
+      "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
+    ).click();
 
     cy.get("button.gh-flow-skip").click();
     cy.visit(`${ghostUrl}/ghost/#/signout`);
-    cy.visit(`${ghostUrl}/ghost/#/site`);
-    cy.get("input[name='identification']").type(CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(CONSTANTS.VALID_PASSWORD);
+    cy.get("input[name='identification']").type(GENERAL_CONSTANTS.VALID_EMAIL);
+    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
     cy.get("button.login").click();
   });
 });

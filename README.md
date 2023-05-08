@@ -4,7 +4,7 @@
 | ------------- | ------------- |
 | Andres Marin | No |
 | Camilo Romero | Si |
-| Diego Acosta | Si |
+| Diego Acosta | No |
 | Diego Martin | Si |
 
 | Funcionalidad | Escenario de Prueba |

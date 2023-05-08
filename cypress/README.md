@@ -106,3 +106,76 @@
 - Se llenan el texto para el título del post
 - Se da click al botón de + en el contenido del post
 - Se da click en la opción de email
+
+## Funcionalidad 3: Edición de Posts
+![image](https://user-images.githubusercontent.com/123770672/236733166-8db7edda-9b7f-4dab-98c4-1422e2add1a9.png)
+
+### Escenario 10 (Positivo): Edición de post exitosa (edición del título del post)
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/posts?type=draft````
+- Se selecciona el primer post que esté creado
+- Se modifica el título del post
+- Se da click en el contenido
+- Se da click al botón de volver al menú de posts
+
+### Escenario 11 (Positivo): Edición de post exitosa (edición del contenido del post)
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/posts?type=draft````
+- Se selecciona el primer post que esté creado
+- Se vuelve a abrir el mismo post
+
+
+### Escenario 12 (Positivo): Edición de post exitosa (edición del título del post a texto vacío)
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/posts?type=draft````
+- Se selecciona el primer post que esté creado
+- Se modifica el título del post para que quede vacío
+- Se da click en el contenido
+
+## Funcionalidad 4: Edición de Perfil
+![image](https://user-images.githubusercontent.com/123770672/236733790-b1117b0e-62bf-4151-bb55-b77120444cab.png)
+
+### Escenario 13 (Negativo): Edición del perfil con nombre de usuario vacío
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/staff/${userParam}```` donde la variable ```userParam``` se refiere a el primer valor del nombre del usuario en minúsculas (Si el usuario se llama John Doe, tendrá valor de ```john```)
+- Se limpia el input del nombre del usuario
+- Se da click al botón de guardar
+
+### Escenario 14 (Positivo): Edición del perfil (modificación de la ubicación del usuario)
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/staff/${userParam}```` donde la variable ```userParam``` se refiere a el primer valor del nombre del usuario en minúsculas (Si el usuario se llama John Doe, tendrá valor de ```john```)
+- Se llena el input de ubicación del usuario
+- Se da click al botón de guardar
+
+### Escenario 15 (Positivo): Edición del perfil (modificación del slug)
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/staff/${userParam}```` donde la variable ```userParam``` se refiere a el primer valor del nombre del usuario en minúsculas (Si el usuario se llama John Doe, tendrá valor de ```john```)
+- Se limpia el input del slug
+- Se da click en cualquier parte de la página para quitar el focus del input del slug
+
+### Escenario 16 (Positivo): Edición del perfil (modificación del link de Facebook)
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa a la página ````${ghostUrl}/ghost/#/staff/${userParam}```` donde la variable ```userParam``` se refiere a el primer valor del nombre del usuario en minúsculas (Si el usuario se llama John Doe, tendrá valor de ```john```)
+- Se esceibe un nombre de usuario de facebook
+- Se da click en cualquier parte de la página para quitar el focus del input de facebook
+
+## Funcionalidad 5: Barra de búsqueda
+![image](https://user-images.githubusercontent.com/123770672/236734805-a5b28f68-5c47-4b70-a811-23a9964cece5.png)
+
+### Escenario 17 (Positivo): Apertura de barra de búsqueda con atajo de teclado
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa Ctrl+k
+
+### Escenario 18 (Positivo): Cerrado de barra de búsqueda
+- Se ingresa a la página ````${ghostUrl}/ghost/#/signin````
+- Se inicia sesión con el email y contraseña registrados en la funcionalidad anterior
+- Se ingresa Ctrl+k
+- Se ingresa Esc

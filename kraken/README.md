@@ -12,7 +12,9 @@ Para las pruebas, se trabajó en la versión web.
 
 - Node v18.15.0
 
-- kraken-node v1.0.24
+- Kraken v1.0.24
+
+- Cucumber v7.2.1
 
 ## Funcionalidades probadas
 

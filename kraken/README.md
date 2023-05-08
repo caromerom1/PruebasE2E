@@ -18,21 +18,26 @@ Para las pruebas, se trabajó en la versión web.
 
 ## Funcionalidades probadas
 
-- Crear cuenta nueva
+- Registro en la aplicación
 
-- Inicio de sesión
+- Búsqueda de publicaciones
 
-- Crear Post nuevo
+- Crear una publicación
 
-- Editar Post
+- Filtrar las publicaciones
 
-- Editar información del usuario
-
-- Modal de búsqueda
+- Crear miembros en la aplicación
 
 ## Guía para la ejecución de pruebas con Kraken
 
-1. En la raíz del repositorio correr ```npm install```
+1. Primero, en el terminar lanzar el comando ```npm install kraken-node -g```
 
+1. Verificar que todas las dependencias se hayan instalado.
+
+1. Instalar appium con el comando ```npm install -g appium```
+
+1. Instalar localmente kraken-node para que funcione con la versión de cucumber ```npm install kraken-node```
+
+1. Correr los escenarios con ```kraken-node run```
 
 

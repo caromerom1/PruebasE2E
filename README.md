@@ -7,8 +7,8 @@
 | Diego Acosta | Si |
 | Diego Martin | Si |
 
-| Funcionalidad     | Tipo de Escenario      | Escenario de Prueba |
-| ------------- | ------------- | -------- |
+| Funcionalidad | Escenario de Prueba |
+| ------------- | ------------- |
 | Registro de un usuario en la aplicación.  | Hacer click en Subscribe -> No introducir nada Name -> No introducir nada en Email -> Hacer click en Sign up -> Verificar que se haya enviado correo de registro |
 | Registro de un usuario en la aplicación.  | Hacer click en Subscribe -> No introducir nada Name -> Introducir en Email: juan.perez@prueba.com -> Hacer click en Sign up -> Verificar que se haya enviado correo de registro |
 | Registro de un usuario en la aplicación.  | Hacer click en Subscribe -> Introducir en Name: Juan Perez -> No introducir nada en Email -> Hacer click en Sign up -> Verificar que se haya enviado correo de registro |

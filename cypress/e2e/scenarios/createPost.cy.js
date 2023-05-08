@@ -7,12 +7,6 @@ const CONSTANTS = {
 };
 
 beforeEach(() => {
-  const signupUrl = `${ghostUrl}/ghost/#/setup/two`;
-
-  cy.visit(signupUrl);
-});
-
-beforeEach(() => {
   cy.visit(`${ghostUrl}/ghost/#/signin`);
   cy.get("input[name='identification']").type(GENERAL_CONSTANTS.VALID_EMAIL);
   cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
@@ -21,7 +15,7 @@ beforeEach(() => {
   cy.get("a[title='New post']").click();
 });
 
-describe("Create ghost account", () => {
+describe("Create post", () => {
   it("should create a new post", () => {
     cy.get("textarea[placeholder='Post Title']").type(CONSTANTS.POST_TITLE);
     cy.get(".koenig-editor__editor").type(CONSTANTS.POST_CONTENT);
@@ -64,5 +58,11 @@ describe("Create ghost account", () => {
       .contains("span", "Unpublish")
       .click();
     cy.get("div.gh-notification-content").contains("Saved");
+  });
+
+  it("should be able to add email only content", () => {
+    cy.get("button.koenig-plus-menu-button").click();
+    cy.get("div").contains("Email").click();
+    cy.get(".kg-email-card").should("exist");
   });
 });

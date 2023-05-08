@@ -28,7 +28,7 @@ Para las pruebas, se trabajó en la versión web.
 
 - Modal de búsqueda
 
-## Guía para la ejecución de pruebas con Cypress
+## Guía para la ejecución de pruebas con Kraken
 
 1. En la raíz del repositorio correr ```npm install```
 

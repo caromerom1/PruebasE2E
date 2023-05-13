@@ -1,5 +1,6 @@
 import GENERAL_CONSTANTS from "../constants";
-const ghostUrl = Cypress.env("ghostUrl");
+import { loginPage } from "../../pages/login";
+import { createPostPage } from "../../pages/createPost";
 
 const CONSTANTS = {
   POST_TITLE: "Test post",
@@ -7,62 +8,44 @@ const CONSTANTS = {
 };
 
 beforeEach(() => {
-  cy.visit(`${ghostUrl}/ghost/#/signin`);
-  cy.get("input[name='identification']").type(GENERAL_CONSTANTS.VALID_EMAIL);
-  cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
-  cy.get("button.login").click();
-
-  cy.get("a[title='New post']").click();
+  loginPage.login(
+    GENERAL_CONSTANTS.VALID_EMAIL,
+    GENERAL_CONSTANTS.VALID_PASSWORD
+  );
+  createPostPage.elements.newPostButton().click();
 });
 
 describe("Create post", () => {
   it("should create a new post", () => {
-    cy.get("textarea[placeholder='Post Title']").type(CONSTANTS.POST_TITLE);
-    cy.get(".koenig-editor__editor").type(CONSTANTS.POST_CONTENT);
+    createPostPage.createPost(CONSTANTS.POST_TITLE, CONSTANTS.POST_CONTENT);
 
-    cy.get("div.gh-publishmenu-trigger").click();
-    cy.get("button.gh-publishmenu-button").click();
-
-    cy.get("div.gh-notification-content").should("be.visible");
+    createPostPage.elements.notification().should("be.visible");
   });
 
   it("should create a new post with title '(untitled)' when no title is set", () => {
-    cy.get(".koenig-editor__editor").type(CONSTANTS.POST_CONTENT);
+    createPostPage.createPost("", CONSTANTS.POST_CONTENT);
 
-    cy.get("div.gh-publishmenu-trigger").click();
-    cy.get("button.gh-publishmenu-button").click();
+    createPostPage.elements.notification().should("be.visible");
 
-    cy.get("div.gh-notification-content").should("be.visible");
-
-    cy.get("textarea[placeholder='Post Title']").should(
-      "have.value",
-      "(Untitled)"
-    );
+    createPostPage.elements.postTitleInput().should("have.value", "(Untitled)");
   });
 
   it("should not be able create a new post when it does not have content", () => {
-    cy.get("textarea[placeholder='Post Title']").type(CONSTANTS.POST_TITLE);
+    createPostPage.elements.postTitleInput().type(CONSTANTS.POST_TITLE);
 
-    cy.get("div.gh-publishmenu-trigger").should("not.exist");
+    createPostPage.elements.publishButton().should("not.exist");
   });
 
   it("should be able to unpublish a post", () => {
-    cy.get("textarea[placeholder='Post Title']").type(CONSTANTS.POST_TITLE);
-    cy.get(".koenig-editor__editor").type(CONSTANTS.POST_CONTENT);
+    createPostPage.createPost(CONSTANTS.POST_TITLE, CONSTANTS.POST_CONTENT);
 
-    cy.get("div.gh-publishmenu-trigger").click();
-    cy.get("button.gh-publishmenu-button").click();
-
-    cy.get("div.gh-publishmenu-radio").contains("Unpublished").click();
-    cy.get("button.gh-publishmenu-button")
-      .contains("span", "Unpublish")
-      .click();
-    cy.get("div.gh-notification-content").contains("Saved");
+    createPostPage.elements.unpublishCheckbox().click();
+    createPostPage.elements.unPublishButton().click();
+    createPostPage.elements.notification().contains("Saved");
   });
 
   it("should be able to add email only content", () => {
-    cy.get("button.koenig-plus-menu-button").click();
-    cy.get("div").contains("Email").click();
-    cy.get(".kg-email-card").should("exist");
+    createPostPage.addEmailContent();
+    createPostPage.elements.emailCard().should("exist");
   });
 });

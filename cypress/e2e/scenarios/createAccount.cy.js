@@ -1,3 +1,5 @@
+import { createAccountPage } from "../../pages/createAccount";
+import { loginPage } from "../../pages/login";
 import GENERAL_CONSTANTS from "../constants";
 
 const ghostUrl = Cypress.env("ghostUrl");
@@ -13,19 +15,15 @@ const CONSTANTS = {
   INVALID_EMAIL_ERROR: "Invalid Email.",
 };
 
-beforeEach(() => {
-  const signupUrl = `${ghostUrl}/ghost/#/setup/two`;
-
-  cy.visit(signupUrl);
-});
-
 describe("Create ghost account", () => {
   it("should not create a new ghost account when all inputs are empty", () => {
-    cy.get(
-      "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
-    ).click();
+    const signupUrl = `${ghostUrl}/ghost/#/setup/two`;
 
-    cy.get("p.response")
+    cy.visit(signupUrl);
+    createAccountPage.elements.createAccountButton().click();
+
+    createAccountPage.elements
+      .inputErrors()
       .should("have.length", 4)
       .each((response, index) => {
         expect(Cypress.$(response).text()).to.contain(
@@ -33,55 +31,54 @@ describe("Create ghost account", () => {
         );
       });
 
-    cy.get("p.main-error")
+    createAccountPage.elements
+      .mainError()
       .should("have.length", 1)
       .should("contain", CONSTANTS.MAIN_ERROR_LABEL);
   });
 
   it("should not create a new ghost account when email is invalid", () => {
-    cy.get("input[name='blog-title']").type(GENERAL_CONSTANTS.SITE_TITLE);
-    cy.get("input[name='name']").type(GENERAL_CONSTANTS.VALID_NAME);
-    cy.get("input[name='email']").type(GENERAL_CONSTANTS.INVALID_EMAIL);
-    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
+    createAccountPage.createAccount(
+      GENERAL_CONSTANTS.SITE_TITLE,
+      GENERAL_CONSTANTS.VALID_NAME,
+      GENERAL_CONSTANTS.INVALID_EMAIL,
+      GENERAL_CONSTANTS.VALID_PASSWORD
+    );
 
-    cy.get(
-      "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
-    ).click();
-
-    cy.get("p.response")
+    createAccountPage.elements
+      .inputErrors()
       .should("have.length", 4)
       .should("contain", CONSTANTS.INVALID_EMAIL_ERROR);
   });
 
   it("should not create a new ghost account when password has less than 10 characters", () => {
-    cy.get("input[name='blog-title']").type(GENERAL_CONSTANTS.SITE_TITLE);
-    cy.get("input[name='name']").type(GENERAL_CONSTANTS.VALID_NAME);
-    cy.get("input[name='email']").type(GENERAL_CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(GENERAL_CONSTANTS.INVALID_PASSWORD);
+    createAccountPage.createAccount(
+      GENERAL_CONSTANTS.SITE_TITLE,
+      GENERAL_CONSTANTS.VALID_NAME,
+      GENERAL_CONSTANTS.VALID_EMAIL,
+      GENERAL_CONSTANTS.INVALID_PASSWORD
+    );
 
-    cy.get(
-      "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
-    ).click();
-
-    cy.get("p.response")
+    createAccountPage.elements
+      .inputErrors()
       .should("have.length", 4)
       .should("contain", CONSTANTS.ERROR_LABELS[3]);
   });
 
   it("should create a new ghost account when all inputs are valid", () => {
-    cy.get("input[name='blog-title']").type(GENERAL_CONSTANTS.SITE_TITLE);
-    cy.get("input[name='name']").type(GENERAL_CONSTANTS.VALID_NAME);
-    cy.get("input[name='email']").type(GENERAL_CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
+    createAccountPage.createAccount(
+      GENERAL_CONSTANTS.SITE_TITLE,
+      GENERAL_CONSTANTS.VALID_NAME,
+      GENERAL_CONSTANTS.VALID_EMAIL,
+      GENERAL_CONSTANTS.VALID_PASSWORD
+    );
 
-    cy.get(
-      "button.gh-btn.gh-btn-green.gh-btn-lg.gh-btn-block.gh-btn-icon.ember-view"
-    ).click();
-
-    cy.get("button.gh-flow-skip").click();
+    createAccountPage.elements.skipNormalFlowButton().click();
     cy.visit(`${ghostUrl}/ghost/#/signout`);
-    cy.get("input[name='identification']").type(GENERAL_CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
-    cy.get("button.login").click();
+
+    loginPage.login(
+      GENERAL_CONSTANTS.VALID_EMAIL,
+      GENERAL_CONSTANTS.VALID_PASSWORD
+    );
   });
 });

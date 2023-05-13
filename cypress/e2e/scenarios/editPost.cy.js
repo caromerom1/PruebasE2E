@@ -1,4 +1,7 @@
+import { editPostPage } from "../../pages/editPost";
+import { loginPage } from "../../pages/login";
 import GENERAL_CONSTANTS from "../constants";
+
 const ghostUrl = Cypress.env("ghostUrl");
 
 const CONSTANTS = {
@@ -8,59 +11,45 @@ const CONSTANTS = {
 
 describe("Edit post", () => {
   beforeEach(() => {
-    cy.visit(`${ghostUrl}/ghost/#/signin`);
-    cy.get("input[name='identification']").type(GENERAL_CONSTANTS.VALID_EMAIL);
-    cy.get("input[name='password']").type(GENERAL_CONSTANTS.VALID_PASSWORD);
-    cy.get("button.login").click();
+    loginPage.login(
+      GENERAL_CONSTANTS.VALID_EMAIL,
+      GENERAL_CONSTANTS.VALID_PASSWORD
+    );
 
     cy.wait(500);
     cy.visit(`${ghostUrl}/ghost/#/posts?type=draft`);
+    editPostPage.elements.firstPost().click();
   });
 
   it("should be able to edit a post title", () => {
+    editPostPage.elements.postTitleInput().clear();
 
-    cy.get(".gh-list-row.gh-posts-list-item").first().click();
-
-    cy.get("textarea[placeholder='Post Title']").clear();
     const updatedTitle = `${CONSTANTS.POST_TITLE} Updated`;
+    editPostPage.editPost(updatedTitle, "");
 
-    cy.get("textarea[placeholder='Post Title']").type(updatedTitle, {
-      force: true,
-    });
+    editPostPage.elements.contentInput().click();
 
-    cy.get(".koenig-editor__editor").click();
+    editPostPage.elements.navigateToPosts().click();
 
-    cy.get("a[href='#/posts/?type=draft']").contains("Posts").click();
-
-    cy.get(".gh-list-row.gh-posts-list-item")
-      .first()
-      .should("contain", updatedTitle);
+    editPostPage.elements.firstPost().should("contain", updatedTitle);
   });
 
   it("should be able to edit a post content", () => {
-    cy.get(".gh-list-row.gh-posts-list-item").first().click();
+    editPostPage.elements.contentInput().clear();
 
-    cy.get(".koenig-editor__editor").clear();
     const updatedContent = `${CONSTANTS.POST_CONTENT} Updated`;
-    cy.get(".koenig-editor__editor").type(updatedContent, {
-      force: true,
-    });
-    cy.get("a[href='#/posts/?type=draft']").contains("Posts").click();
-    cy.get(".gh-list-row.gh-posts-list-item").first().click();
+    editPostPage.editPost("", updatedContent);
+    editPostPage.elements.navigateToPosts().click();
+    editPostPage.elements.firstPost().click();
 
-    cy.get(".koenig-editor__editor").should("contain", updatedContent);
+    editPostPage.elements.contentInput().should("contain", updatedContent);
   });
 
   it("should change the post title to (Untitled) if it is changed to empty text", () => {
-    cy.get(".gh-list-row.gh-posts-list-item").first().click();
+    editPostPage.elements.postTitleInput().clear();
 
-    cy.get("textarea[placeholder='Post Title']").clear();
+    editPostPage.elements.contentInput().click();
 
-    cy.get(".koenig-editor__editor").click();
-
-    cy.get("textarea[placeholder='Post Title']").should(
-      "have.value",
-      "(Untitled)"
-    );
+    editPostPage.elements.postTitleInput().should("have.value", "(Untitled)");
   });
 });

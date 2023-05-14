@@ -8,10 +8,14 @@ class EditPostPage {
   };
 
   editPost(title, content) {
-    title &&
+    if (title) {
       this.elements.postTitleInput().clear().type(title, { force: true });
-    content &&
+      cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    }
+    if (content) {
       this.elements.contentInput().clear().type(content, { force: true });
+      cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    }
   }
 }
 

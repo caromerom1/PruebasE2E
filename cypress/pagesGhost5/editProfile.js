@@ -17,6 +17,8 @@ class EditProfilePage {
   visitEditProfilePage() {
     const userParam = GENERAL_CONSTANTS.VALID_NAME.split(" ")[0].toLowerCase();
     cy.visit(`${ghostUrl}/ghost/#/settings/staff/${userParam}`);
+    cy.wait(1000);
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 }
 

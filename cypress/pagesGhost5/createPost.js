@@ -20,25 +20,48 @@ class CreatePostPage {
   };
 
   createPost(title, content) {
-    title && this.elements.postTitleInput().type(title);
-    content && this.elements.contentInput().type(content);
+    if (title) {
+      this.elements.postTitleInput().type(title);
+      cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    }
+    if (content) {
+      this.elements.contentInput().type(content);
+      cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    }
     this.elements.publishButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    cy.wait(1000);
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.confirmPublishButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    cy.get(".gh-publish-settings-container").screenshot(
+      `v5-${Cypress.currentTest.titlePath.join("/")}/step`
+    );
     this.elements.publishPostRightNowButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
+    cy.get(".gh-publish-settings-container").screenshot(
+      `v5-${Cypress.currentTest.titlePath.join("/")}/step`
+    );
   }
 
   createAndUnpublishPost(title, content) {
     this.createPost(title, content);
 
     this.elements.backToEditorButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.unPublishButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.revertToDraftButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 
   addEmailContent() {
     this.elements.contentInput().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.addCustomContentButton().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.emailSection().click();
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 }
 

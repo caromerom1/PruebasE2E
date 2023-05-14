@@ -20,11 +20,18 @@ class CreateAccountPage {
     const signupUrl = `${ghostUrl}/ghost/#/setup/two`;
 
     cy.visit(signupUrl);
+    cy.wait(1000);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.blogTitleInput().type(blogTitle);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.nameInput().type(name);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.emailInput().type(email);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.passwordInput().type(password);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.createAccountButton().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 }
 

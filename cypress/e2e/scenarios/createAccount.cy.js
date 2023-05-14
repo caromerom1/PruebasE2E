@@ -20,7 +20,10 @@ describe("Create ghost account", () => {
     const signupUrl = `${ghostUrl}/ghost/#/setup/two`;
 
     cy.visit(signupUrl);
+    cy.wait(1000);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     createAccountPage.elements.createAccountButton().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
 
     createAccountPage.elements
       .inputErrors()
@@ -35,6 +38,7 @@ describe("Create ghost account", () => {
       .mainError()
       .should("have.length", 1)
       .should("contain", CONSTANTS.MAIN_ERROR_LABEL);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should not create a new ghost account when email is invalid", () => {
@@ -49,6 +53,7 @@ describe("Create ghost account", () => {
       .inputErrors()
       .should("have.length", 4)
       .should("contain", CONSTANTS.INVALID_EMAIL_ERROR);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should not create a new ghost account when password has less than 10 characters", () => {
@@ -63,6 +68,7 @@ describe("Create ghost account", () => {
       .inputErrors()
       .should("have.length", 4)
       .should("contain", CONSTANTS.ERROR_LABELS[3]);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should create a new ghost account when all inputs are valid", () => {
@@ -74,6 +80,7 @@ describe("Create ghost account", () => {
     );
 
     createAccountPage.elements.skipNormalFlowButton().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     cy.visit(`${ghostUrl}/ghost/#/signout`);
 
     loginPage.login(

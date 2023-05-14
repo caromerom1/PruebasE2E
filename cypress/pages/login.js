@@ -9,9 +9,15 @@ class LoginPage {
 
   login(email, password) {
     cy.visit(`${ghostUrl}/ghost/#/signin`);
+    cy.wait(1000);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.emailInput().type(email);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.passwordInput().type(password);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.loginButton().click();
+    cy.wait(1000);
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 }
 

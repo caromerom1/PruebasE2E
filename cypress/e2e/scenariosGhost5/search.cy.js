@@ -16,13 +16,16 @@ describe("Search", () => {
     searchPage.elements.searchModal().should("not.exist");
     searchPage.openSearchModal();
     searchPage.elements.searchModal().should("exist");
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should close search modal when esc is pressed", () => {
     searchPage.elements.searchModal().should("not.exist");
     searchPage.openSearchModal();
     searchPage.elements.searchModal().should("exist");
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
     searchPage.closeSearchModal();
     searchPage.elements.searchModal().should("not.exist");
+    cy.screenshot(`v5-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 });

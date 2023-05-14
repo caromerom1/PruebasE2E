@@ -13,6 +13,7 @@ beforeEach(() => {
     GENERAL_CONSTANTS.VALID_PASSWORD
   );
   createPostPage.elements.newPostButton().click();
+  cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
 });
 
 describe("Create post", () => {
@@ -20,20 +21,25 @@ describe("Create post", () => {
     createPostPage.createPost(CONSTANTS.POST_TITLE, CONSTANTS.POST_CONTENT);
 
     createPostPage.elements.notification().should("be.visible");
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should create a new post with title '(untitled)' when no title is set", () => {
     createPostPage.createPost("", CONSTANTS.POST_CONTENT);
 
     createPostPage.elements.notification().should("be.visible");
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
 
     createPostPage.elements.postTitleInput().should("have.value", "(Untitled)");
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should not be able create a new post when it does not have content", () => {
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     createPostPage.elements.postTitleInput().type(CONSTANTS.POST_TITLE);
 
     createPostPage.elements.publishButton().should("not.exist");
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   });
 
   it("should be able to unpublish a post", () => {

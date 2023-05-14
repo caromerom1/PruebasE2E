@@ -16,15 +16,25 @@ class CreatePostPage {
   };
 
   createPost(title, content) {
-    title && this.elements.postTitleInput().type(title);
-    content && this.elements.contentInput().type(content);
+    if (title) {
+      this.elements.postTitleInput().type(title);
+      cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
+    }
+    if (content) {
+      this.elements.contentInput().type(content);
+      cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
+    }
     this.elements.publishButton().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.publishCheckbox().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 
   addEmailContent() {
     this.elements.addCustomContentButton().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
     this.elements.emailSection().click();
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 }
 

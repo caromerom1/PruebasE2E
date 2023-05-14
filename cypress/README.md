@@ -4,9 +4,11 @@
 
 - Ghost version: 3.41.1
 
+- Ghost version: 5.47.1
+
 ## Tecnologías utilizadas
 
-- Node v14.21.3 & Node v18.16.0
+- Node v14.21.3 & Node 16.20.0 Node v18.16.0
 
 - cypress v12.11.0
 
@@ -36,7 +38,7 @@
 
 1. En el menú de Specs se encuentran las funcionalidades con sus pruebas correspondientes (cada escenario de prueba está definido por separado en el código)
 
-1. Ejecutar ghost de forma local en el puerto 2368 (si se quiere otro puerto o la url de ghost es distinta, modificar el valor en el archivo ```cypress.config.js```)
+1. Ejecutar la versión de ghost a probar de forma local en el puerto 2368 (si se quiere otro puerto o la url de ghost es distinta, modificar el valor en el archivo ```cypress.config.js```)
 
 1. Es importante tener en cuenta que, para el correcto funcionamiento de las pruebas, no se debe tener creado ningún usuario. Para esto, se puede ejecutar el siguiente comando desde el directorio de la aplicación ghost ```rm content/data/ghost-local.db```
 

@@ -6,10 +6,12 @@ class SearchPage {
 
   openSearchModal() {
     this.elements.body().type("{ctrl}k");
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 
   closeSearchModal() {
     this.elements.body().type("{esc}");
+    cy.screenshot(`v3-${Cypress.currentTest.titlePath.join("/")}/step`);
   }
 }
 
